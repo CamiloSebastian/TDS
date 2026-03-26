@@ -1,0 +1,25 @@
+Bugs que encontrei:
+
+irrigationRule.js:
+Quando a temperatura era 35, a função dizia "Irrigação moderada", mas deveria ser "Irrigação URGENTE".
+Para 25 graus, aparecia "Não irrigar", mas o certo era "Irrigação moderada".
+Para 10 graus, a função retornava "Irrigação URGENTE", quando deveria ser "Não irrigar".
+
+
+weatherService.js
+A função estava pegando o campo errado do JSON da API, o que quebrava o teste.
+server.js
+O endpoint /irrigation estava enviando o campo temp em vez de temperature.
+Por isso, os testes de integração não conseguiam ler a temperatura corretamente.
+
+O que eu corrigi:
+
+irrigationRule.js – Ajustei a função para que cada faixa de temperatura retorne o aviso certo.
+weatherService.js – Corrigi para pegar o campo correto do JSON (current_weather.temperature).
+server.js – Mudei o JSON retornado pelo endpoint para temperature e advice, assim os testes conseguem ler corretamente.
+
+Resultado final:
+Depois das correções, todos os testes do Jest passaram sem problemas. Agora o sistema está entregando as respostas corretas 
+conforme esperado.
+
+Sem o node_modules, então tem que instalar o jest antes de testar
